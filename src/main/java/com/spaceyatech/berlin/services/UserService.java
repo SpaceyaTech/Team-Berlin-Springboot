@@ -55,7 +55,7 @@ public class UserService {
     public JwtResponse signIn(LoginRequest loginRequest){
 
 
-        log.info("sign in request:-->{}",loginRequest);
+        log.info("sign in request:-->{}",loginRequest.getUsername());
 
 
         Authentication authentication = authenticationManager.authenticate(
@@ -68,7 +68,7 @@ public class UserService {
 
         log.info("authentication data:-->{}", authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);//This is where we store details of the present security context of the application, which includes details of the principal currently using the application.
         String access_token = jwtUtils.generateJwtToken(authentication);
         String refresh_token = jwtUtils.generateJwtRefreshToken(authentication);
 
@@ -106,16 +106,12 @@ public class UserService {
 
             if(userRepository.existsByUsername(signUpRequest.getUsername())) {
                 return new MessageResponse("Error: Username is already taken!");
-                /*return ResponseEntity
-                        .badRequest()
-                        .body(new MessageResponse("Error: Username is already taken!"));*/
+
             }
 
             if (userRepository.existsByEmail(signUpRequest.getEmail())) {
                 return new MessageResponse("Error: Email is already in use!");
-                /*return ResponseEntity
-                        .badRequest()
-                        .body(new MessageResponse("Error: Email is already in use!"));*/
+
             }
 
             // Create new user's account
@@ -170,6 +166,7 @@ public class UserService {
 
             try{
                 userRepository.save(user);
+                //TODO: we can send email alert
                  msg = MessageResponse.builder()
                         .message("User registered successfully!")
                         .build();

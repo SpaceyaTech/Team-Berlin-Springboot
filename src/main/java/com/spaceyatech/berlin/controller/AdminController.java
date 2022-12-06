@@ -2,6 +2,7 @@ package com.spaceyatech.berlin.controller;
 
 import com.spaceyatech.berlin.models.User;
 import com.spaceyatech.berlin.response.AllUsersResponse;
+import com.spaceyatech.berlin.services.AccountService;
 import com.spaceyatech.berlin.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -36,6 +37,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping( "/allusers")
     @SecurityRequirement(name = "Bearer Authentication")
 
@@ -54,5 +58,13 @@ public class AdminController {
         log.info("user Id specified: -->{}",id);
 
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(id));
+    }
+
+    @GetMapping("/UserAccounts/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
+    public ResponseEntity<?> findAccountsAssociatedToUserByUserId(@PathVariable("id") UUID userId){
+        log.info("user Id specified: -->{}",userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.fetchAllAccountsAssociatedToUserByUserId(userId));
     }
 }

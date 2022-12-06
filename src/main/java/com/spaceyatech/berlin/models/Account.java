@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Builder
@@ -29,8 +30,6 @@ public class Account extends BaseEntity{
     private Timestamp UpdatedAT;
     @Column(name ="bio_data",length=1000)
     private String bio_data;
-    /*@Column(name="users_id")//foreign-KEY
-    private Long users_id;*/
 
     //https://www.bezkoder.com/jpa-one-to-many/
     @ManyToOne(fetch = FetchType.LAZY, optional = false)//we use Fetchtype.LAZY for faster performance
@@ -38,9 +37,6 @@ public class Account extends BaseEntity{
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
-
-
-    // Set<Users> users = new HashSet<>();
 
 
 
