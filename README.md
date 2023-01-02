@@ -1,5 +1,13 @@
 # Team-Berlin-Springboot
 Team Berlin Backend Written in Java Springboot For The SpaceYaTech Project
+
+# Running the application:
+##  locally using **docker**
+make sure you have docker installed. See [docker installation guideline](https://docs.docker.com/get-docker/).
+
+run `docker compose up`
+
+
 # database
 This project has made use of postgresql database
 
