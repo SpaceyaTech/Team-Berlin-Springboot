@@ -10,7 +10,7 @@ spring:
 
   datasource:
     password: berlin
-    url: jdbc:postgresql://localhost:5432/berlin
+    url: jdbc:postgresql://database:5432/berlin
     username: berlin
   jpa:
     hibernate:

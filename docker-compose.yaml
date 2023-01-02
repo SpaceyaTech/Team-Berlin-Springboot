@@ -1,0 +1,25 @@
+version: '3'
+services:
+  application:
+    container_name: team_berlin_springboot
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    depends_on:
+      - database
+
+  database:
+    image: 'postgres:alpine'
+    container_name: team_berlin_postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "berlin"
+      POSTGRES_PASSWORD: "berlin"
+      POSTGRES_DB: "berlin"
+    ports:
+      - "5423:5432"
